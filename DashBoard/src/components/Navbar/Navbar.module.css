@@ -1,0 +1,50 @@
+/* src/components/Navbar.module.css */
+.navbar {
+    background-color: #0d0101; /* Dark background for light mode */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px 20px; */
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 10;
+    z-index: 1000;
+    border: 1px solid transparent; /* Default border for light mode */
+  }
+  
+  .navMenu {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navItem {
+    margin-left: 20px;
+    padding: 8px 16px;
+    border-radius: 99px; /* Very large border radius to create rounded-full effect */
+  }
+  
+  /* Dark mode styles */
+  body.dark .navbar {
+    background-color: #f3f4f6; /* Light background for dark mode */
+    color: #333;
+    border-color: #ccc; /* Lighter border for dark mode */
+  }
+  
+  body.dark .navItem {
+    background-color: #e2e8f0; /* Slightly darker background for nav items in dark mode */
+    color: #333;
+  }
+  
+  
+  @media (max-width: 768px) {
+    .navItem {
+      margin-left: 10px; /* Smaller margin for mobile views */
+    }
+  }
+  
