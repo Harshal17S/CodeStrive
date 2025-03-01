@@ -1,18 +1,18 @@
 import React from 'react'
-import ParentComponent from './components/Harox/ParentComponent'; // Adjust the path as necessary
-import Navbar from './components/Navbar/Navbar';
-
+import HaroxCompWrapper from './components/Harox/HaroxCompWrapper'
 import { NavBarDemo } from './components/ui/Demo'
 import { ThemeProvider } from './components/ui/theme-provider'
+import {Routes,Route} from 'react-router-dom';
 
 const App = () => {
   return (
     <>
-    {/* <ThemeProvider>
-    <NavBarDemo />
-    </ThemeProvider> */}
-      <Navbar/>
-      <ParentComponent />
+    <ThemeProvider>
+    <Routes>
+      <Route path="/" element={<NavBarDemo />} />
+      <Route path="/winReward" element={<HaroxCompWrapper />} />
+    </Routes>
+    </ThemeProvider>
     </>
   )
 }
