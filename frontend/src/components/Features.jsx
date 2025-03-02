@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import F1 from "../assets/F1.png";
+import F2 from "../assets/F2.png";
+import F3 from "../assets/F3.png"
+import F4 from "../assets/F4.jpg"
 
 // Variants
 const containerVariants = {
@@ -43,7 +46,7 @@ const textBlockVariants = {
 
 // Headline Component
 const FeatureHeadline = () => {
-  const text = "Elevate Your Social Media Strategy with Intelligent Automation";
+  const text = "Elevate Your Coding Game with Smart Automation!";
 
   return (
     <div className="text-center max-w-[75rem]">
@@ -109,21 +112,21 @@ const Features = () => {
       <FeatureHeadline />
       <div className="flex flex-col justify-center items-center gap-16">
         <FeatureBlock
-          title="Your Digital Essence, Secured On-Chain Forever"
-          description="Transform your social data into a decentralized, immutable digital persona. Create an autonomous web3 portfolio that learns and adapts based on your social interactions and crypto interests."
-          image={F1}
+          title=" Hackathon & Contest Scheduler"
+          description="Stay updated with upcoming competitions using the event scheduler. Organizers can seamlessly post new events, while participants can easily track and register for hackathons, DSA contests, CP contests, and ML competitions."
+          image={F4}
           reverse={true}
         />
         <FeatureBlock
-          title="AI-Driven Content: Precision, Timing, Perfection"
-          description="Intelligently analyze and process your content across text, images, and videos. Automatically optimize posting times for maximum engagement on each unique platform."
-          image={F1}
+          title="Reward System & Swag Redemption"
+          description="Earn coins by participating in hackathons and contests. Redeem them for exciting swags and exclusive perks, making every competition more rewarding."
+          image={F3}
           reverse={false}
         />
         <FeatureBlock
-          title="One Identity, Multiple Voices: AI-Powered Social Persona"
-          description="Automatically craft unique communication styles for each social platform. Seamlessly switch between professional LinkedIn tone and casual Twitter banter while maintaining your core identity."
-          image={F1}
+          title="DSA 1v1 Battle"
+          description="Engage in head-to-head coding battles with peers in real-time. Challenge others, solve data structure and algorithm problems, and climb the competitive ranks."
+          image={F2}
           reverse={true}
         />
       </div>

@@ -2,6 +2,7 @@ import React from "react";
 import { SignedIn ,SignedOut } from "@clerk/clerk-react";
 import axios from 'axios';
 import {useUser} from '@clerk/clerk-react';
+import img from '../assets/F1.png'
 
 const RetroGrid = () => {
   const gridStyles = {
@@ -96,7 +97,7 @@ const HeroSection = React.forwardRef((props, ref) => {
           </div>
           <div className="mt-32 mx-10 relative z-10">
             <img
-              src="https://www.launchuicomponents.com/app-dark.png"
+              src={img}
               className="w-full shadow-lg rounded-lg border border-gray-800"
               alt="Dashboard preview"
             />

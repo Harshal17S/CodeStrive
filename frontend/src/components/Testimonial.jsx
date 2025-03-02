@@ -141,8 +141,7 @@ const Testimonials = () => {
             See What Our Users Are Saying
           </h2>
           <p className="max-w-2xl text-md sm:text-xl text-gray-300 text-center font-serif">
-            Join thousands of musicians who are already honing their skills and
-            creating amazing music with our academy and store.
+          Join thousands of competitive coders and developers who are sharpening their skills and excelling in hackathons, contests, and coding battles on our platform ! 
           </p>
         </div>
         <div

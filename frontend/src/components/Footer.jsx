@@ -25,7 +25,7 @@ const Footer = () => {
             style={{ y }}
           >
             <p className="text-[60px] md:text-[60px] lg:text-[230px] font-bold font-Kudryashev mt-4 text-transparent bg-gradient-to-b from-white to-gray-600 bg-clip-text">
-              GreenBand
+              Codestrive
             </p>
           </motion.div>
         </div>
