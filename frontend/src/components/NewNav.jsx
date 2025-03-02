@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react";
 import { motion, useMotionValueEvent, useScroll, AnimatePresence } from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
-import {SignInButton} from "@clerk/clerk-react";
+import {useUser ,SignOutButton} from "@clerk/clerk-react";
 
-const Navbar = () => {
+const NewNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const { scrollY } = useScroll();
   const lastYRef = useRef(0);
+  const User = useUser();
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const diff = y - lastYRef.current;
@@ -38,9 +39,12 @@ const Navbar = () => {
           <NavLink href="#services">SERVICES</NavLink>
           <NavLink href="#about">ABOUT US</NavLink>
           <p className="text-3xl text-white font-semibold">CodeStrive</p>
-          <NavLink href="#faqs">FAQs</NavLink>
-          <NavLink href="#footer">CONTACT</NavLink>
-          <NavLink><SignInButton /></NavLink>
+          <NavLink href="/profile">Profile</NavLink>
+          <NavLink>{User.user.firstName}</NavLink>
+          <NavLink><img src={User.user.imageUrl} width={"60px"} height={"50px"} style={{borderRadius:"50%"}}/></NavLink>
+          <NavLink><SignOutButton/></NavLink>
+
+
 
           <button className="lg:hidden text-white" onClick={toggleMenu}>
             {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
@@ -86,4 +90,4 @@ const NavLink = ({ href, children, onClick }) => (
   </a>
 );
 
-export default Navbar;
+export default NewNav;

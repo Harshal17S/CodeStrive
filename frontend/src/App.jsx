@@ -1,6 +1,8 @@
 import { ReactLenis, useLenis } from 'lenis/react'
 import './App.css'
 import LandingPage from './pages/LandingPage'
+import {Routes,Route} from 'react-router-dom'
+import UserProfileO from './components/UserProfileO'
 
 function App() {
 
@@ -11,7 +13,10 @@ function App() {
         syncTouch: true,
       }
       }>
-       <LandingPage/>
+      <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/profile" element={<UserProfileO/>}/>
+      </Routes>
       </ReactLenis>
   )
 }

@@ -4,11 +4,18 @@ import Testimonials from "../components/Testimonial.jsx";
 import { HeroSection } from "../components/HeroSection.jsx";
 import Navbar from "../components/Navbar.jsx";
 import Features from "../components/Features.jsx";
+import { SignedIn , SignedOut } from "@clerk/clerk-react";
+import NewNav from "../components/NewNav.jsx";
 
 function LandingPage() {
   return (
     <div>
-      <Navbar />
+      <SignedOut>
+        <Navbar />
+      </SignedOut>
+      <SignedIn>
+       <NewNav />
+      </SignedIn>
       <HeroSection />
       <Features/>
       <Testimonials />
