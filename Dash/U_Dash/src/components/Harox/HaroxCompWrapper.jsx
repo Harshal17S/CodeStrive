@@ -4,10 +4,10 @@ import ParentComponent from './ParentComponent'
 
 const HaroxCompWrapper = () => {
   return (
-   <>
-   <Navbar/>
+   <div className="App">
+   {/* <Navbar/> */}
    <ParentComponent/>
-   </>
+   </div>
   )
 }
 

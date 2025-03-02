@@ -26,6 +26,8 @@ export function NavBarDemo() {
     { name: `${userLevel}`, url: '#', icon: FileText },
     { name: `${userEmail}`, url: '#', icon: FileText },
     { name: `Store`, url: '/winReward', icon: FileText },
+    { name: `Community`, url: 'https://agrico-community.vercel.app/', icon: FileText },
+    { name: `DSA Challenge`, url: 'https://cp-buddy-t80e.onrender.com', icon: FileText },
     { name: `Signout`, url: '/#', icon: FileText },
 
   ]
