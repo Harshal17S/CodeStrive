@@ -10,7 +10,7 @@ const Organizer = require('./Model/Organizer');
 require('dotenv').config();
 
 app.use(CORS({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","http://localhost:5174"],
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
+import axios from 'axios';
+
 
 export default function EventForm() {
   const [companyname, setCompanyName] = useState("");
@@ -70,10 +72,37 @@ export default function EventForm() {
       });
 
       if (result.ok) {
-        if (confirm("Employee Added Successfully! ")) {
-          window.location.href = "https://agrico-community.vercel.app/";
-      }
-      
+        // if (confirm("Employee Added Successfully! ")) {
+        //   window.location.href = "https://agrico-community.vercel.app/";
+        // }
+
+        console.log(formData)
+        const eventData = {
+          event: {
+            name: {
+              html: formData.companyname
+            },
+            summary: formData.description,
+            start: {
+              timezone: "America/Los_Angeles",
+              utc: "2025-03-02T06:30:00Z"
+            },
+            end:{
+              timezone: "America/Los_Angeles",
+              utc: "2025-04-10T06:30:00Z"
+            },
+            currency: "USD"
+          }
+        };
+
+        await axios.post(`https://www.eventbriteapi.com/v3/organizations/2659001598811/events/`, eventData, {
+          headers: {
+            Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP'
+          }
+        }).then((response) => {
+          console.log("Event Has been Created" + response.data)
+        }).catch(err => console.log(err))
+
         setCompanyName("");
         setJobTitle("");
         setDateTime("");
@@ -120,7 +149,7 @@ export default function EventForm() {
         <div className="mb-3">
           <label className="form-label">Date & Time</label>
           <input
-            type="datetime-local"
+            type="date"
             className="form-control"
             value={dateTime}
             onChange={(e) => setDateTime(e.target.value)}
