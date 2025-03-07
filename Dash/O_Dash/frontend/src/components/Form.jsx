@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./style.css";
 import axios from 'axios';
+import { useUser } from "@clerk/clerk-react";
+
 
 export default function EventForm() {
   const [companyname, setCompanyName] = useState("");
@@ -12,14 +14,13 @@ export default function EventForm() {
   const [capacity, setCapacity] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const user = useUser();
 
   // Upload Image to Cloudinary
   const uploadImageToCloudinary = async (imageFile) => {
     const formData = new FormData();
     formData.append("file", imageFile);
     formData.append("upload_preset", "harox123");
-    formData.append("upload_token", "aW1hZ2UtZXZlbnQtbG9nb3xldmVudGJyaXRlLXVwbG9hZGVyLWluY29taW5nLXByb2R8YTE5NTZmMmNmYzYzNDkzZi4yMDI1MDMwNy0wNzU1NDg=")
 
     try {
       setLoading(true);
@@ -72,6 +73,11 @@ export default function EventForm() {
         headers: { "Content-Type": "application/json" },
       });
 
+      await axios.post("http://localhost:5000/updateEventsOfOrganizor", {
+        useremail: user.user.primaryEmailAddress.emailAddress, eventName: formData.companyname, description: formData.description, dateTime: formData.dateTime, location: formData.location, mode: formData.mode, ticketType: formData.ticketType,
+        image: imageUrl
+      })
+
       if (result.ok) {
 
         // const formData = new FormData();
@@ -89,7 +95,7 @@ export default function EventForm() {
 
         // await axios.post("https://www.eventbriteapi.com/v3/media/upload/", formData, {
         //   headers: {
-        //     Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+        //     Authorization: Bearer Z6YXQPA7U4OBF7BLYIBP
         //   }
         // }).then((res) => {
         //   console.log(res.data)
@@ -97,14 +103,13 @@ export default function EventForm() {
         //   console.log(err);
         // })
 
-
         const eventData = {
           event: {
             name: {
               "html": companyname
             },
-            description:{
-              "html":description
+            description: {
+              "html": description
             },
             start: {
               "timezone": "Asia/Kolkata",
@@ -119,8 +124,8 @@ export default function EventForm() {
             category_id: "102",
             subcategory_id: "2004",
             format_id: "5",
-            logo_id: "972842923",
-            capacity: capacity, 
+            logo_id: "978189923",
+            capacity: capacity,
           }
         }
 
@@ -129,31 +134,36 @@ export default function EventForm() {
             Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP'
           }
         }).then(async (response) => {
-          // console.log("Event Has been Created" + response.data)
-          const ticket_class_data={
-              ticket_class: {
-                name: "Register to Hackmatrix",
-                free: true,
-                quantity_total: capacity,
-                sales_start: "2025-03-02T06:30:00Z",
-                sales_end: "2025-03-15T23:59:00Z",
-                minimum_quantity: 1,
-                maximum_quantity: 10,
-                auto_hide: false
-              }
+
+          const ticket_class_data = {
+            ticket_class: {
+              name: `Register to ${companyname}`,
+              free: true,
+              quantity_total: capacity,
+              sales_start: "2025-03-02T06:30:00Z",
+              sales_end: "2025-03-15T23:59:00Z",
+              minimum_quantity: 1,
+              maximum_quantity: 10,
+              auto_hide: false
             }
-
-        await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/ticket_classes/`, ticket_class_data, {
-          headers: {
-            Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
           }
-        })
 
-        await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/publish/`,{},{
-          headers: {
-            Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
-          }
-        }).then((res)=>{console.log(res.data)})
+          await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/ticket_classes/`, ticket_class_data, {
+            headers: {
+              Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+            }
+          })
+
+          await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/publish/`, {}, {
+            headers: {
+              Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+            }
+          }).then((res) => { console.log(res.data) })
+
+          await axios.post("http://localhost:5000/updateEventsOfOrganizor", {
+            useremail: user.user.primaryEmailAddress.emailAddress, eventName: formData.companyname,eventid:`${response.data.id}`, description: formData.description, dateTime: formData.dateTime, location: formData.location, mode: formData.mode, ticketType: formData.ticketType,
+            image: imageUrl
+          })
 
         }).catch(err => console.log(err));
 
@@ -166,6 +176,8 @@ export default function EventForm() {
         setTicketType("Free");
         setCapacity("");
         setImage(null);
+
+        alert("New Event Has been Published");
 
       } else {
         alert("Failed to add Employee. Please try again.");

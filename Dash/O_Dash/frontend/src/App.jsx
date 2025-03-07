@@ -9,10 +9,10 @@ import Upcoming from './components/Upcoming'
 function App() {
   return (
     <div className="App">
-    <Navbar/>
-    {/* <Past/> */}
-    <Upcoming/>
-      <Form/>
+      <Navbar />
+      {/* <Past/> */}
+      <Upcoming />
+      <Form />
     </div>
   );
 }

@@ -123,6 +123,44 @@ app.post('/checkParticipation', async (req, res) => {
     }).catch(() => { console.log("Error While Checking Participation") })
 })
 
+
+app.post("/FindUserProfiles", async (req, res) => {
+    const { useremail } = req.body;
+
+    const reguser = await User.findOne({ useremail: useremail });
+    const regorg = await Organizer.findOne({ useremail: useremail });
+
+    if (reguser) {
+        res.send("Participant");
+    } else if (regorg) {
+        res.send("Organization");
+    } else {
+        res.send("No User");
+    }
+})
+
+app.post("/updateEventsOfOrganizor", async (req, res) => {
+    const { useremail, eventName, eventid, description, dateTime, location, mode, ticketType, image } = req.body;
+
+    const reqorganizor = await Organizer.findOne({ useremail });
+
+    reqorganizor.HostedEvents.push({ eventName, eventid, description, dateTime, location, mode, ticketType, image })
+
+    await reqorganizor.save();
+
+    res.send("Organization Events Updated");
+
+});
+
+app.post("/getEventsbyOrganizers", async (req, res) => {
+    const { useremail } = req.body;
+
+    const reqorganizor = await Organizer.findOne({ useremail });
+
+    res.send(reqorganizor.HostedEvents)
+
+})
+
 app.listen(PORT, () => {
     console.log('Server is running on port ' + PORT);
 })

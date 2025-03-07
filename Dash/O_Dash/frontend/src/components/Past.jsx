@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import './Past.css'
+import { useUser } from "@clerk/clerk-react";
+
 
 export default function EventList() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState();
   const [loading, setLoading] = useState(true);
+  const user=useUser();
 
   useEffect(() => {
     fetchEvents();
@@ -11,8 +14,9 @@ export default function EventList() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:4000/getres");
+      const response = await fetch("http://localhost:5000/getEventsbyOrganizers",{useremail:user.user.primaryEmailAddress.emailAddress});
       const data = await response.json();
+      console.log(data);
       setEvents(data);
       setLoading(false);
     } catch (error) {

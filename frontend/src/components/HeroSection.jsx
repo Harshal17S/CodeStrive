@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SignedIn, SignedOut } from "@clerk/clerk-react";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -27,8 +27,25 @@ const RetroGrid = () => {
 };
 
 const HeroSection = React.forwardRef((props, ref) => {
-  const User=useUser();
+  const User = useUser();
+  const [Participant, setParticipant] = useState(false);
+  const [Organization, setOrganization] = useState(false);
 
+  const CheckUserProfiles=async ()=>{
+    if (User.user) {
+      axios.post("http://localhost:5000/FindUserProfiles", { useremail: User.user.primaryEmailAddress.emailAddress }).then((response) => {
+        console.log(response.data)
+        if (response.data === "Participant") {
+          setParticipant(true)
+        }
+        if (response.data === "Organization") {
+          setOrganization(true)
+        }
+      }).catch((err) => { console.log(err) });
+    }
+  }
+
+  CheckUserProfiles();
 
   return (
     <div className="relative bg-black" ref={ref} {...props}>
@@ -54,7 +71,7 @@ const HeroSection = React.forwardRef((props, ref) => {
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
                 <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-                <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+                <div className="inline-flex h-full w-full cursor-pointer items-center justify-center  bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
                   <SignedOut>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
@@ -66,7 +83,8 @@ const HeroSection = React.forwardRef((props, ref) => {
                   </SignedOut>
 
                   <SignedIn>
-                    <a
+
+                    {!(Participant || Organization) && <><a
                       className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
                       onClick={async (e) => {
                         e.preventDefault();
@@ -78,7 +96,6 @@ const HeroSection = React.forwardRef((props, ref) => {
                           })
                           .then(() => {
                             alert("Organizer Added Successfully");
-                            window.open("http://localhost:5174");
                           })
                           .catch((err) => {
                             console.log(err);
@@ -103,7 +120,6 @@ const HeroSection = React.forwardRef((props, ref) => {
                           })
                           .then((resq) => {
                             alert("Participant Added Successfully");
-                            window.open("http://localhost:5175");
                           })
                           .catch((err) => {
                             console.log(err);
@@ -111,7 +127,24 @@ const HeroSection = React.forwardRef((props, ref) => {
                       }}
                     >
                       Register as Participant
-                    </a>
+                    </a></>}
+
+                    {Participant && <>
+                      <a className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10" onClick={(e)=>{
+                        e.preventDefault();
+                        window.open("http://localhost:5175","_self");
+                      }}>Go to Participant Dash </a>
+                    </>}
+
+                    {
+                      Organization && <>
+                        <a className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10" onClick={(e)=>{
+                        e.preventDefault();
+                        window.open("http://localhost:5174","_self")
+                      }}>Go to Org Dash </a>
+                      </>
+                    }
+
                   </SignedIn>
                 </div>
               </span>
