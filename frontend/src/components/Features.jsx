@@ -1,11 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import F1 from "../assets/F1.png";
 import F2 from "../assets/F2.png";
-import F3 from "../assets/F3.png"
-import F4 from "../assets/F4.jpg"
+import F3 from "../assets/F3.png";
+import F4 from "../assets/F4.jpg";
 
-// Variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -44,27 +42,21 @@ const textBlockVariants = {
   },
 };
 
-// Headline Component
 const FeatureHeadline = () => {
-  const text = "Elevate Your Coding Game with Smart Automation!";
-
   return (
     <div className="text-center max-w-[75rem]">
-      <h1 className="text-6xl font-bold justify-center text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">
-        FEATURES
+      <h1 className="text-6xl font-serif justify-center text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">
+        What we offer
       </h1>
       <motion.div
-        className="text-6xl font-medium py-14 text-white flex flex-wrap justify-center tracking-wide gap-2 text-center"
+        className="text-2xl max-w-3xl font-serif py-6 justify-center gap-2 text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
       >
-        {text.split(" ").map((word, index) => (
-          <motion.span key={index} className="inline-block mx-2" variants={wordVariants}>
-            {word}
-          </motion.span>
-        ))}
+        Discover the tools and features designed to enhance your competitive
+        coding journey.
       </motion.div>
     </div>
   );
@@ -74,9 +66,9 @@ const FeatureHeadline = () => {
 const FeatureBlock = ({ title, description, image, reverse }) => {
   return (
     <motion.div
-      className={`w-[75rem] h-[32rem] rounded-xl flex ${
+      className={`w-[75rem] h-[32rem] rounded-4xl flex ${
         reverse ? "flex-row-reverse" : "flex-row"
-      } shadow-lg bg-neutral-900 text-white`}
+      } shadow-lg bg-[#121212] text-white`}
       variants={blockVariants}
       initial="hidden"
       whileInView="visible"
@@ -89,8 +81,8 @@ const FeatureBlock = ({ title, description, image, reverse }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <p className="text-3xl font-bold pb-6 ">{title}</p>
-        <p className="text-lg leading-relaxed text-gray-300">{description}</p>
+        <p className="text-3xl font-serif pb-6 ">{title}</p>
+        <p className="text-lg font-sans leading-relaxed text-gray-300">{description}</p>
       </motion.div>
       <motion.div
         className="flex justify-center items-center w-[50%] px-8"
@@ -99,7 +91,7 @@ const FeatureBlock = ({ title, description, image, reverse }) => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <img src={image} alt={title} className="w-[85%] h-auto rounded-lg" />
+        <img src={image} alt={title} className="w-[90%] h-[60%] rounded-lg" />
       </motion.div>
     </motion.div>
   );
@@ -112,20 +104,20 @@ const Features = () => {
       <FeatureHeadline />
       <div className="flex flex-col justify-center items-center gap-16">
         <FeatureBlock
-          title=" Hackathon & Contest Scheduler"
-          description="Stay updated with upcoming competitions using the event scheduler. Organizers can seamlessly post new events, while participants can easily track and register for hackathons, DSA contests, CP contests, and ML competitions."
+          title="Comprehensive Event Calendar"
+          description="Stay updated with upcoming competitions through our intuitive event scheduler. Organizers can effortlessly post new events, while participants can track and register for hackathons, DSA contests, CP challenges, and ML competitions all in one place."
           image={F4}
           reverse={true}
         />
         <FeatureBlock
-          title="Reward System & Swag Redemption"
-          description="Earn coins by participating in hackathons and contests. Redeem them for exciting swags and exclusive perks, making every competition more rewarding."
+          title="Incentive System & Rewards Marketplace"
+          description="Earn digital currency by participating in and winning competitions. Redeem your earned points for exclusive merchandise, tech gadgets, and special perks that recognize your achievements and skills."
           image={F3}
           reverse={false}
         />
         <FeatureBlock
-          title="DSA 1v1 Battle"
-          description="Engage in head-to-head coding battles with peers in real-time. Challenge others, solve data structure and algorithm problems, and climb the competitive ranks."
+          title="Real-Time Coding Duels"
+          description="Challenge your peers to 1v1 coding battles focused on data structures and algorithms. Compete in real-time, solve problems under pressure, and climb the competitive leaderboard to showcase your technical prowess."
           image={F2}
           reverse={true}
         />

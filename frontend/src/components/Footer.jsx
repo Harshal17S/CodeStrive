@@ -24,88 +24,89 @@ const Footer = () => {
             className="h-full flex justify-center items-center"
             style={{ y }}
           >
-            <p className="text-[60px] md:text-[60px] lg:text-[230px] font-bold font-Kudryashev mt-4 text-transparent bg-gradient-to-b from-white to-gray-600 bg-clip-text">
-              Codestrive
+            <p className="text-[120px] md:text-[160px] lg:text-[210px] font-serif mt-4 text-transparent bg-gradient-to-b from-white to-neutral-700 bg-clip-text">
+              CodeStrive
             </p>
           </motion.div>
         </div>
         <div className="flex flex-col md:flex-row justify-around items-start p-4 md:p-8 font-serif gap-6 md:gap-12">
           <div className="flex flex-col gap-4">
-            <p className="font-bold text-xl md:text-2xl">Contact</p>
+            <p className="font-serif text-xl md:text-2xl">Contact</p>
             <div className="flex flex-row gap-1">
-              <p className="font-semibold text-lg md:text-xl">Email:</p>
-              <a href="mailto:sidh412@gmail.com" className="text-sm md:text-lg">
-                sidh412@gmail.com
-              </a>
-            </div>
-            <div className="flex flex-row gap-2">
-              <p className="font-semibold text-lg md:text-xl">Phone:</p>
-              <a href="tel:+918668344235" className="text-sm md:text-lg">
-                +918668344235
+              <p className="font-serif text-lg md:text-xl">Email:</p>
+              <a href="mailto:sidh412@gmail.com" className="text-sm md:text-lg ">
+                codeStrive@help.com
               </a>
             </div>
           </div>
-          <div className="flex flex-col gap-4">
-            <p className="font-bold text-xl md:text-2xl">Addresses 📍</p>
-            <a
-              href="https://google.com/maps"
-              className="text-sm md:text-lg max-w-[30vh] md:max-w-[40vh]"
-            >
-              GreenBand Music Studio, ITI Corner, Nanded - 431603
-            </a>
-            <a
-              href="https://google.com/maps"
-              className="text-sm md:text-lg max-w-[30vh] md:max-w-[40vh]"
-            >
-              GreenBand Music Classes, Khandelwal Complex, Vazirabad, Nanded -
-              431602
-            </a>
+
+          <div className="flex flex-col ">
+            <p className="font-serif text-xl md:text-2xl">Discover</p>
+            <ul className="flex flex-col gap-2 mt-2">
+              <a href="/" className="text-sm md:text-lg text-gray-300 hover:text-white transition-colors hover:underline">
+                Hackathons
+              </a>
+              <a
+                href=""
+                className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline"
+              >
+                DSA Contest
+              </a>
+              <a href="" className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline">
+                CP Contests
+              </a>
+            </ul>
           </div>
-          <div className="flex flex-col gap-4">
-            <p className="font-bold text-xl md:text-2xl">Services</p>
-            <ul className="flex flex-col">
-              <a href="#hero" className="text-sm md:text-lg hover:underline">
+
+          <div className="flex flex-col ">
+            <p className="font-serif text-xl md:text-2xl">Quick Links</p>
+            <ul className="flex flex-col gap-2 mt-2">
+              <a href="/" className="text-sm md:text-lg text-gray-300 hover:text-white transition-colors hover:underline">
                 Home
               </a>
               <a
-                href="instagram.com"
-                className="text-sm md:text-lg  hover:underline"
+                href=""
+                className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline"
               >
-                Store
+                Organize Event
               </a>
-              <a href="" className="text-sm md:text-lg  hover:underline">
-                Book Us
+              <a href="" className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline">
+                Participate
+              </a>
+              <a href="" className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline">
+                Workspace
+              </a>
+              <a href="" className="text-sm md:text-lg  text-gray-300 hover:text-white transition-colors hover:underline">
+                Coding Duesls
               </a>
             </ul>
           </div>
           <div>
-            <p className="font-bold text-xl md:text-2xl">Socials</p>
-            <ul className="flex flex-row gap-4">
+            <p className="font-serif text-xl md:text-2xl">Socials</p>
+            <ul className="flex flex-col gap-2 mt-2">
               <a
-                href="https://www.instagram.com/green_band_music_academy?igsh=eXJwZDA4bHhzeTRz"
+                href="https://www.linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-pink-500 hover:text-pink-600 transition-transform transform hover:scale-110"
+                className="text-sm md:text-lg text-gray-300 hover:text-white transition-colors hover:underline"
               >
-                <FaInstagram className="w-8 h-8" />
+                LinkedIn
               </a>
-              {/* Facebook */}
               <a
-                href="https://www.facebook.com/profile.php?id=100063585496408"
+                href="https://www.twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-700 transition-transform transform hover:scale-110"
+                className="text-sm md:text-lg text-gray-300 hover:text-white transition-colors hover:underline"
               >
-                <FaFacebook className="w-8 h-8" />
+                Twitter
               </a>
-              {/* YouTube */}
               <a
-                href="https://www.youtube.com/@Sidhant-"
+                href="https://www.instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-red-600 hover:text-red-700 transition-transform transform hover:scale-110"
+                className="text-sm md:text-lg text-gray-300 hover:text-white transition-colors hover:underline"
               >
-                <FaYoutube className="w-8 h-8" />
+                Instagram
               </a>
             </ul>
           </div>

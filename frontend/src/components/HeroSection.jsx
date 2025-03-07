@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { SignedIn ,SignedOut } from "@clerk/clerk-react";
-import axios from 'axios';
-import {useUser} from '@clerk/clerk-react';
-import img from '../assets/F1.png'
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { useUser } from "@clerk/clerk-react";
+import img from "../assets/F1.png";
 
 const RetroGrid = () => {
   const gridStyles = {
@@ -11,7 +12,6 @@ const RetroGrid = () => {
     "--opacity": 0.4,
     "--dark-line": "#2a2a2a",
   };
-
 
   return (
     <div
@@ -27,8 +27,8 @@ const RetroGrid = () => {
 };
 
 const HeroSection = React.forwardRef((props, ref) => {
-  const User=useUser();
-  const [username, setusername] = useState("")
+  const User = useUser();
+  const [username, setusername] = useState("");
 
   return (
     <div className="relative bg-black" ref={ref} {...props}>
@@ -36,66 +36,84 @@ const HeroSection = React.forwardRef((props, ref) => {
       <section className="relative max-w-full mx-auto z-1 pt-14">
         <RetroGrid />
         <div className="max-w-screen-xl z-10 mx-auto px-4 py-28 gap-12 md:px-8">
-          <div className="space-y-5 max-w-3xl leading-0 lg:leading-5 mx-auto text-center">
-            <h1 className="text-sm text-gray-400 group font-geist mx-auto px-5 py-2 bg-gradient-to-tr from-zinc-300/5 via-gray-400/5 to-transparent border-[2px] border-white/5 rounded-3xl w-fit">
-              Welcome to Our Platform
+          <div className="space-y-5 max-w-4xl leading-0 lg:leading-5 mx-auto text-center">
+            <h1 className="text-sm text-gray-300 group font-geist mx-auto px-5 py-2 bg-gradient-to-tr from-zinc-300/5 via-gray-400/5 to-transparent border-[2px] border-white/2 rounded-3xl w-fit">
+              Welcome to CodeStrive ✨
             </h1>
-            <h2 className="text-4xl tracking-tighter font-geist bg-clip-text text-transparent mx-auto md:text-6xl bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)]">
-              Transform your ideas into <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">beautiful digital experiences</span>
+            <h2 className="text-4xl tracking-tighter font-serif bg-clip-text text-transparent mx-auto md:text-6xl bg-[linear-gradient(180deg,_#FFF_0%,_rgba(255,_255,_255,_0.00)_202.08%)]">
+              Elevate Your Technical Abilities{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">
+                Through Competitive Collaboration
+              </span>
             </h2>
-            <p className="max-w-2xl mx-auto text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">
-              Transform your ideas into reality with our comprehensive suite of development tools and resources.
+            <p className="max-w-2xl mx-auto font-serif text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300">
+              Discover competitions tailored to your interests and skill level.
+              Climb the leaderboards while collaborating with peers in a
+              supportive environment.
             </p>
             <div className="items-center justify-center gap-x-3 space-y-3 sm:flex sm:space-y-0">
               <span className="relative inline-block overflow-hidden rounded-full p-[1.5px]">
                 <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
                 <div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white dark:bg-gray-950 text-xs font-medium backdrop-blur-3xl">
-                    
-                    <SignedOut>
-    <a
-                          className="inline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10nline-flex rounded-full text-center group items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 "
-                        >
-                          Get Started
-                        </a>
-                    </SignedOut>
+                  <SignedOut>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="inline-flex group items-center justify-center w-full sm:w-auto bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border border-input hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all py-4 px-10 rounded-full text-center"
+                    >
+                      Get Started
+                    </motion.button>
+                  </SignedOut>
 
-                    <SignedIn>
+                  <SignedIn>
+                    <a
+                      className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        await axios
+                          .post("http://localhost:5000/RegisterOrganizer", {
+                            userName: User.user.firstName,
+                            userEmail:
+                              User.user.primaryEmailAddress.emailAddress,
+                          })
+                          .then(() => {
+                            alert("Organizer Added Successfully");
+                            window.open("http://localhost:5174");
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      Register as Organizer
+                    </a>
 
                     <a
-                          className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
-                         
-                          onClick={async (e)=>{
-                            e.preventDefault();
-                            await axios.post("http://localhost:5000/RegisterOrganizer",{userName:User.user.firstName,userEmail:User.user.primaryEmailAddress.emailAddress}).then(()=>{
-                              alert('Organizer Added Successfully');
-                              window.open("http://localhost:5174")
-                            }).catch(err=>{console.log(err)});
-                           }} 
-                       
-                       >
-                          Register as Organizer
-                        </a>
-
-
-                        <a
-                          className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
-                          style={{marginLeft:'30px'}}
-
-                           onClick={async (e)=>{
-                            e.preventDefault();
-                            await axios.post("http://localhost:5000/saveUser",{userName:User.user.firstName,earnedPoints:0,userLevel:"Begineer",useremail:User.user.primaryEmailAddress.emailAddress}).then((resq)=>{
-                              alert('Participant Added Successfully');
-                            window.open("http://localhost:5175")
-
-                            }).catch(err=>{console.log(err)});
-                           }}
-                        >
-                         Register as Participant
-                        </a>
-
-
-                    </SignedIn>
-                  </div>
+                      className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
+                      style={{ marginLeft: "30px" }}
+                      onClick={async (e) => {
+                        e.preventDefault();
+                        await axios
+                          .post("http://localhost:5000/saveUser", {
+                            userName: User.user.firstName,
+                            earnedPoints: 0,
+                            userLevel: "Begineer",
+                            useremail:
+                              User.user.primaryEmailAddress.emailAddress,
+                          })
+                          .then((resq) => {
+                            alert("Participant Added Successfully");
+                            window.open("http://localhost:5175");
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      Register as Participant
+                    </a>
+                  </SignedIn>
+                </div>
               </span>
             </div>
           </div>

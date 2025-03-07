@@ -36,8 +36,8 @@ const NewNav = () => {
       >
         {/* All items in a single row with equal spacing */}
         <div className="flex w-full justify-between items-center gap-x-4">
-          <NavLink href="#services">SERVICES</NavLink>
-          <NavLink href="#about">ABOUT US</NavLink>
+        <NavLink href="#services">Home</NavLink>
+        <NavLink href="#about">Features</NavLink>
           <p className="text-3xl text-white font-semibold">CodeStrive</p>
           <NavLink href="/profile">Profile</NavLink>
           <NavLink>{User.user.firstName}</NavLink>

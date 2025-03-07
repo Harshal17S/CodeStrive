@@ -10,7 +10,7 @@ const AfterSign = () => {
     <>
     <SignedOut>
       <Navbar />
-      <He></He
+      
     </SignedOut>
     </>
   )

@@ -52,77 +52,77 @@ DotCard.displayName = "DotCard";
 const testimonials = [
   {
     author: {
-      name: "Ravi Sharma",
-      handle: "@ravimusician",
+      name: "Rajiv Sharma",
+      handle: "@rajivdev",
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    },
+    text: "CodeArena has significantly improved my algorithmic thinking. The 1v1 battles pushed me to solve problems faster and more efficiently than I ever thought possible!",
+    href: "https://twitter.com/rajivdev",
+  },
+  {
+    author: {
+      name: "Priya Verma",
+      handle: "@priyacodes",
+      avatar: 
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
+    },
+    text: "The platform's reward system kept me motivated throughout my DSA learning journey. I've redeemed points for some amazing tech gadgets while improving my skills!",
+    href: "https://twitter.com/priyacodes",
+  },
+  {
+    author: {
+      name: "Asmit Patel",
+      handle: "@asmitdevops",
+      avatar:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    },
+    text: "Organizing our college hackathon was seamless with this platform. The scheduler and registration features helped us manage over 200 participants with ease.",
+  },
+  {
+    author: {
+      name: "Sneha Gupta",
+      handle: "@snehaml",
+      avatar:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
+    },
+    text: "The ML competitions on this platform exposed me to real-world problems. I've improved my model building skills tremendously and even landed an internship!",
+  },
+  {
+    author: {
+      name: "Vikram Mehta",
+      handle: "@vikramcp",
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    },
+    text: "From a complete beginner to reaching the top 50 on the CP leaderboard in just 6 months. The competitive environment here is challenging yet incredibly supportive.",
+  },
+  {
+    author: {
+      name: "Anjali Reddy",
+      handle: "@anjalifullstack",
       avatar:
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
     },
-    text: "The academy has truly helped me enhance my music skills. The teachers are very knowledgeable, and the online resources are incredible!",
-    href: "https://twitter.com/ravimusician",
+    text: "The comprehensive event calendar keeps me updated on all upcoming competitions. I've participated in 15 hackathons through this platform and won three of them!",
   },
   {
     author: {
-      name: "Priya Patel",
-      handle: "@priyasings",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    },
-    text: "The music academy has given me the confidence to perform in front of audiences. I highly recommend it to anyone wanting to pursue their passion for music.",
-    href: "https://twitter.com/priyasings",
-  },
-  {
-    author: {
-      name: "Amit Kumar",
-      handle: "@amitguitar",
+      name: "Rahul Joshi",
+      handle: "@rahuljava",
       avatar:
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
     },
-    text: "The guitar lessons here have transformed my playing. The practical approach to teaching has helped me grow faster than I imagined.",
+    text: "The gamified experience makes learning DSA fun rather than daunting. Climbing up the ranks has become addictive, and my problem-solving skills have improved dramatically.",
   },
   {
     author: {
-      name: "Sneha Reddy",
-      handle: "@snehamusic",
-      avatar:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-    },
-    text: "I love the personalized feedback I get from my instructors. It has helped me refine my vocal techniques and become more confident in my performances.",
-  },
-  {
-    author: {
-      name: "Vikram Singh",
-      handle: "@vikramsitar",
+      name: "Neha Singh",
+      handle: "@nehacloud",
       avatar:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
     },
-    text: "The music store has a great collection of instruments. I found the perfect sitar for my practice, and the customer service was exceptional.",
-  },
-  {
-    author: {
-      name: "Anjali Sharma",
-      handle: "@anjalimusic",
-      avatar:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-    },
-    text: "The music academy's online store is fantastic. I was able to find everything I needed for my studio setup. Highly recommended!",
-  },
-  {
-    author: {
-      name: "Rahul Mehta",
-      handle: "@rahulpiano",
-      avatar:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face",
-    },
-    text: "My learning experience here has been amazing. I purchased my piano from the store, and it's of the best quality. It's an investment in my future.",
-  },
-  {
-    author: {
-      name: "Neha Desai",
-      handle: "@nehasings",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-    },
-    text: "The academy’s interactive sessions are so much fun! The teachers create a friendly learning environment, which makes it easy to improve.",
+    text: "As a recruiter, this platform helps me identify talented coders. The leaderboard system and achievement tracking give great insights into candidates' skills and persistence.",
   },
 ];
 
@@ -137,11 +137,11 @@ const Testimonials = () => {
     <section className="py-12 sm:py-24 md:py-32 px-4 bg-black text-white h-screen relative">
       <div className="mx-auto max-w-7xl flex flex-col items-center gap-16 b">
         <div className="flex flex-col items-center gap-4">
-          <h2 className="text-3xl sm:text-5xl max-w-screen-lg font-serif p-1 text-center bg-gradient-to-r from-[#3B82F6] via-[#A78BFA] to-[#FBCFE8] text-transparent bg-clip-text">
+          <h2 className="text-3xl sm:text-5xl max-w-screen-lg font-serif p-1 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">
             See What Our Users Are Saying
           </h2>
           <p className="max-w-2xl text-md sm:text-xl text-gray-300 text-center font-serif">
-          Join thousands of competitive coders and developers who are sharpening their skills and excelling in hackathons, contests, and coding battles on our platform ! 
+          Discover how our platform has helped coders advance their skills and careers through competitions.
           </p>
         </div>
         <div
@@ -149,7 +149,6 @@ const Testimonials = () => {
           onClick={handleClick}
         >
           {" "}
-          {/* Added onClick here */}
           <div
             className={`flex gap-6 animate-marquee flex-row ${
               isPaused

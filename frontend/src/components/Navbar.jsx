@@ -21,26 +21,24 @@ const Navbar = () => {
 
   return (
     <motion.div
-      className="w-full flex justify-center fixed top-4 z-50"
+      className="w-full flex justify-center fixed top-4 z-50 font-serif"
       initial={{ y: -100, opacity: 0 }}
       animate={isHidden ? { y: -100, opacity: 0 } : { y: 0, opacity: 1 }}
       transition={{ ease: "easeOut", duration: 0.5 }}
     >
       <motion.nav
-        className="w-full max-w-4xl px-6 py-3 flex items-center justify-between gap-x-4 border border-gray-600 
+        className="w-full max-w-3xl px-6 py-3 flex items-center justify-between border border-gray-600 
           bg-white/5 backdrop-blur-lg rounded-full shadow-lg"
         initial={{ y: -150 }}
         animate={{ y: 0 }}
         transition={{ duration: 1.5, ease: "easeOut", type: "spring" }}
       >
-        {/* All items in a single row with equal spacing */}
-        <div className="flex w-full justify-between items-center gap-x-4">
-          <NavLink href="#services">SERVICES</NavLink>
-          <NavLink href="#about">ABOUT US</NavLink>
+        <div className="flex w-full justify-between items-center">
+          <NavLink href="#services">Home</NavLink>
+          <NavLink href="#about">Features</NavLink>
           <p className="text-3xl text-white font-semibold">CodeStrive</p>
-          <NavLink href="#faqs">FAQs</NavLink>
-          <NavLink href="#footer">CONTACT</NavLink>
-          <NavLink><SignInButton /></NavLink>
+          <NavLink href="#footer">Contact</NavLink>
+          <NavLink><SignInButton/></NavLink>
 
           <button className="lg:hidden text-white" onClick={toggleMenu}>
             {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
@@ -78,7 +76,7 @@ const Navbar = () => {
 const NavLink = ({ href, children, onClick }) => (
   <a
     href={href}
-    className="text-white text-lg relative group transition duration-300 my-2 active:scale-90"
+    className="text-white text-lg relative group transition duration-300 my-1 active:scale-90"
     onClick={onClick}
   >
     {children}

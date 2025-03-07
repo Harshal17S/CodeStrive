@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar.jsx";
 import Features from "../components/Features.jsx";
 import { SignedIn , SignedOut } from "@clerk/clerk-react";
 import NewNav from "../components/NewNav.jsx";
+import Workspace from "../components/Workspace.jsx";
 
 function LandingPage() {
   return (
@@ -19,6 +20,7 @@ function LandingPage() {
       <HeroSection />
       <Features/>
       <Testimonials />
+      <Workspace/>
       <Footer />
     </div>
   );
