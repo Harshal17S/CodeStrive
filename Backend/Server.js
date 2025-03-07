@@ -27,11 +27,11 @@ app.get('/', (req, res) => {
 })
 
 app.post("/RegisterOrganizer", async (req, res) => {
-    const {userName , userEmail}=req.body;
+    const { userName, userEmail } = req.body;
 
-    const neworganizer= new Organizer({
-        username:userName ,
-        useremail:userEmail
+    const neworganizer = new Organizer({
+        username: userName,
+        useremail: userEmail
     })
 
     await neworganizer.save();
@@ -42,10 +42,10 @@ app.post("/RegisterOrganizer", async (req, res) => {
 app.post('/saveUser', async (req, res) => {
     const { userName, earnedPoints, userLevel, useremail } = req.body;
     const user = new User({
-        username:userName,
-        earnedPoints:earnedPoints,
-        userLevel:userLevel,
-        useremail:useremail
+        username: userName,
+        earnedPoints: earnedPoints,
+        userLevel: userLevel,
+        useremail: useremail
     })
     await user.save();
     res.send('Data is Saved Successfully');
@@ -60,6 +60,7 @@ app.post('/getUser', async (req, res) => {
 
 app.post('/updateParticipationPoints', async (req, res) => {
     const { username } = req.body;
+
     const reguser = await User.findOne(({ username }));
     reguser.earnedPoints += 10;
     await reguser.save();
@@ -90,6 +91,18 @@ app.post('/updateUserLevel', async (req, res) => {
     }
     await reguser.save();
     res.send('User Level Updated Successfully');
+})
+
+app.post('/updateUserParicipation', async (req, res) => {
+    const { username, eventId, eventName, participatedAt } = req.body;
+
+    const reguser = await User.findOne(({ username }));
+
+    reguser.participatedEvents.push({ eventId, eventName, participatedAt });
+
+    await reguser.save();
+
+    res.send('Paticipation is Successfully Added');
 })
 
 app.post('/checkParticipation', async (req, res) => {

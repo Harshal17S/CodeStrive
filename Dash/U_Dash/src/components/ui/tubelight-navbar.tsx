@@ -7,13 +7,12 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import axios from 'axios';
 import { SignedIn, SignedOut, SignInButton, SignOutButton, useUser } from '@clerk/clerk-react';
-import { ToastContainer, toast } from 'react-toastify';
+import { Toaster, toast } from 'sonner';
 
 interface NavItem {
   name: string
@@ -29,19 +28,24 @@ interface NavBarProps {
 export function NavBar({ items, className }: NavBarProps) {
   const [activeTab, setActiveTab] = useState(items[0].name)
   const [AllEvents, setAllEvents] = useState([]);
+  const [appliedEvents, setAppliedEvents] = useState({});
+  const [WidgetScriptLoaded, setWidgetScriptLoaded] = useState(false);
   const user = useUser();
 
   useEffect(() => {
+
     axios.get('https://www.eventbriteapi.com/v3/organizations/2659001598811/events/', {
       headers: { Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP' }
     }).then((response) => {
       setAllEvents(response.data['events']);
     }).catch((err) => console.log(err));
 
-    // axios.get('http://localhost:4000/getres').then((res)=>{
-    //     console.log(res)
-    //     setAllEvents(res.data)
-    // }).catch((err)=>{console.log("Error occured")})
+    const script = document.createElement("script");
+    script.src = "https://www.eventbrite.com/static/widgets/eb_widgets.js";
+    script.async = true;
+    script.onload = () => setWidgetScriptLoaded(true);
+    document.body.appendChild(script);
+
 
   }, [])
 
@@ -125,9 +129,10 @@ export function NavBar({ items, className }: NavBarProps) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'row', marginTop: '30px', margin: 'auto', width: "fit-content", gap: '50px' }}>
+        <Toaster position="top-center" />
         {AllEvents && AllEvents.map((event) => {
           return (<>
-            <div style={{ display: "flex", marginLeft: '15px', flexDirection: "row", gap: "10px" }}>
+            <div key={event.id} style={{ display: "flex", marginLeft: '15px', flexDirection: "row", gap: "10px" }}>
               <Card>
                 <CardHeader>
                   {event['logo'] && <img src={event['logo'].url} />}
@@ -136,19 +141,55 @@ export function NavBar({ items, className }: NavBarProps) {
                   <CardDescription>{event['description'].venue}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <button id="example-widget-trigger" onClick={(e) => {
-                    const script = document.createElement("script");
-                    script.src = "https://www.eventbrite.com/static/widgets/eb_widgets.js";
-                    document.body.appendChild(script);
+                  <button
+                    id={`apply-btn-${event.id}`}
+                    onClick={async (e) => {
+                      setAppliedEvents((prev) => ({
+                        ...prev,
+                        [event.id]: true,
+                      }));
 
-                    window.EBWidgets.createWidget({
-                      widgetType: "checkout",
-                      eventId: `${event.id}`,
-                      modal: true,
-                      modalTriggerElementId: "example-widget-trigger",
-                      onOrderComplete: () => console.log("Order complete!"),
-                    });
-                  }}>Apply For Event</button>
+                      window.EBWidgets.createWidget({
+                        widgetType: "checkout",
+                        eventId: `${event.id}`,
+                        modal: true,
+                        modalTriggerElementId: `apply-btn-${event.id}`,
+                        onOrderComplete: () => console.log("Order complete!"),
+                      });
+
+                      await axios
+                        .post("http://localhost:5000/updateParticipationPoints", {
+                          username: user.user?.firstName,
+                        })
+                        .then(async (res) => {
+                          toast.success(res.data);
+                        })
+                        .catch((err) => {
+                          toast.error('Error:' + err);
+                        });
+
+                      await axios.post("http://localhost:5000/updateUserParicipation", {
+                        username: user.user?.firstName,
+                        eventId: event.id,
+                        eventName: event['name'].text,
+                        participatedAt: new Date()
+                      }).then((res) => {
+                        toast.success(res.data);
+                      }).catch((err) => {
+                        toast.error('Error:' + err);
+                      })
+
+                    }}
+                    disabled={appliedEvents[event.id]} // Disables button after applying
+                    style={{
+                      backgroundColor: appliedEvents[event.id] ? "#ccc" : "#007bff",
+                      color: appliedEvents[event.id] ? "#666" : "#fff",
+                      cursor: appliedEvents[event.id] ? "not-allowed" : "pointer",
+                    }}
+                  >
+                    {appliedEvents[event.id] ? "Applied" : "Apply For Event"}
+                  </button>
+
                 </CardContent>
               </Card>
             </div >

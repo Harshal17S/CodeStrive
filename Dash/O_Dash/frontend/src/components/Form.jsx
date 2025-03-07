@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./style.css";
 import axios from 'axios';
 
-
 export default function EventForm() {
   const [companyname, setCompanyName] = useState("");
   const [description, setJobTitle] = useState("");
@@ -14,11 +13,13 @@ export default function EventForm() {
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
   // Upload Image to Cloudinary
   const uploadImageToCloudinary = async (imageFile) => {
     const formData = new FormData();
     formData.append("file", imageFile);
     formData.append("upload_preset", "harox123");
+    formData.append("upload_token", "aW1hZ2UtZXZlbnQtbG9nb3xldmVudGJyaXRlLXVwbG9hZGVyLWluY29taW5nLXByb2R8YTE5NTZmMmNmYzYzNDkzZi4yMDI1MDMwNy0wNzU1NDg=")
 
     try {
       setLoading(true);
@@ -72,36 +73,90 @@ export default function EventForm() {
       });
 
       if (result.ok) {
-        // if (confirm("Employee Added Successfully! ")) {
-        //   window.location.href = "https://agrico-community.vercel.app/";
-        // }
 
-        console.log(formData)
+        // const formData = new FormData();
+        // formData.append("file", imageFile);
+
+        // await axios.get("https://www.eventbriteapi.com/v3/media/upload/?type=image-event-logo&token=Z6YXQPA7U4OBF7BLYIBP", {
+        //   headers: {
+        //     Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP `
+        //   }
+        // }).then((res) => {
+        //   formData.append("upload_token", res.data['upload_token'])
+        // }).catch((err) => {
+        //   console.log(err);
+        // })
+
+        // await axios.post("https://www.eventbriteapi.com/v3/media/upload/", formData, {
+        //   headers: {
+        //     Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+        //   }
+        // }).then((res) => {
+        //   console.log(res.data)
+        // }).catch((err) => {
+        //   console.log(err);
+        // })
+
+
         const eventData = {
           event: {
             name: {
-              html: formData.companyname
+              "html": companyname
             },
-            summary: formData.description,
+            description:{
+              "html":description
+            },
             start: {
-              timezone: "America/Los_Angeles",
-              utc: "2025-03-03T06:30:00Z"
+              "timezone": "Asia/Kolkata",
+              "utc": "2025-03-10T06:30:00Z"
             },
-            end:{
-              timezone: "America/Los_Angeles",
-              utc: "2025-03-05T06:30:00Z"
+            end: {
+              "timezone": "Asia/Kolkata",
+              "utc": "2025-03-15T06:30:00Z"
             },
-            currency: "USD"
+            currency: "USD",
+            online_event: true,
+            category_id: "102",
+            subcategory_id: "2004",
+            format_id: "5",
+            logo_id: "972842923",
+            capacity: capacity, 
           }
-        };
+        }
 
         await axios.post(`https://www.eventbriteapi.com/v3/organizations/2659001598811/events/`, eventData, {
           headers: {
             Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP'
           }
-        }).then((response) => {
-          console.log("Event Has been Created" + response.data)
-        }).catch(err => console.log(err))
+        }).then(async (response) => {
+          // console.log("Event Has been Created" + response.data)
+          const ticket_class_data={
+              ticket_class: {
+                name: "Register to Hackmatrix",
+                free: true,
+                quantity_total: capacity,
+                sales_start: "2025-03-02T06:30:00Z",
+                sales_end: "2025-03-15T23:59:00Z",
+                minimum_quantity: 1,
+                maximum_quantity: 10,
+                auto_hide: false
+              }
+            }
+
+        await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/ticket_classes/`, ticket_class_data, {
+          headers: {
+            Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+          }
+        })
+
+        await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/publish/`,{},{
+          headers: {
+            Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
+          }
+        }).then((res)=>{console.log(res.data)})
+
+        }).catch(err => console.log(err));
+
 
         setCompanyName("");
         setJobTitle("");
@@ -111,6 +166,7 @@ export default function EventForm() {
         setTicketType("Free");
         setCapacity("");
         setImage(null);
+
       } else {
         alert("Failed to add Employee. Please try again.");
       }

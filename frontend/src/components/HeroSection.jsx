@@ -27,8 +27,8 @@ const RetroGrid = () => {
 };
 
 const HeroSection = React.forwardRef((props, ref) => {
-  const User = useUser();
-  const [username, setusername] = useState("");
+  const User=useUser();
+
 
   return (
     <div className="relative bg-black" ref={ref} {...props}>

@@ -1,22 +1,37 @@
-const mongoose=require('mongoose');
-const Schema=mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const userSchema= new Schema({
-    username:{
-        type:String,
-        required:true,
-        unique:true
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
     },
-    useremail:{
-        type:String
+    useremail: {
+        type: String
     },
-    earnedPoints:{
-        type:Number   
+    earnedPoints: {
+        type: Number
     },
-    userLevel:{
-        type:String
+    userLevel: {
+        type: String
     },
+    participatedEvents: [
+        {
+            eventId: {
+                type: String,
+                required: true
+            },
+            eventName: {
+                type: String
+            },
+            participatedAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ]
 })
 
-const User=mongoose.model('Participant',userSchema);
-module.exports=User;
+const User = mongoose.model('Participant', userSchema);
+module.exports = User;
