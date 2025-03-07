@@ -3,7 +3,7 @@ const app = express();
 const CORS = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const PORT = 5000;
+const PORT = 6000;
 const User = require('./Model/Data');
 const Organizer = require('./Model/Organizer');
 

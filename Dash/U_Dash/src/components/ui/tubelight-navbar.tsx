@@ -158,7 +158,7 @@ export function NavBar({ items, className }: NavBarProps) {
                       });
 
                       await axios
-                        .post("http://localhost:5000/updateParticipationPoints", {
+                        .post("http://localhost:6000/updateParticipationPoints", {
                           username: user.user?.firstName,
                         })
                         .then(async (res) => {
@@ -168,7 +168,7 @@ export function NavBar({ items, className }: NavBarProps) {
                           toast.error('Error:' + err);
                         });
 
-                      await axios.post("http://localhost:5000/updateUserParicipation", {
+                      await axios.post("http://localhost:6000/updateUserParicipation", {
                         username: user.user?.firstName,
                         eventId: event.id,
                         eventName: event['name'].text,
@@ -189,7 +189,6 @@ export function NavBar({ items, className }: NavBarProps) {
                   >
                     {appliedEvents[event.id] ? "Applied" : "Apply For Event"}
                   </button>
-
                 </CardContent>
               </Card>
             </div >

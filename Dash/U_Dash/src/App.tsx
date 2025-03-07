@@ -1,6 +1,5 @@
 import React from 'react'
-import HaroxCompWrapper from './components/Harox/HaroxCompWrapper'
-import { NavBarDemo } from './components/ui/Demo'
+import { MainRender } from './components/ui/MainRender'
 import { ThemeProvider } from './components/ui/theme-provider'
 import {Routes,Route} from 'react-router-dom';
 
@@ -9,8 +8,7 @@ const App = () => {
     <>
     <ThemeProvider>
     <Routes>
-      <Route path="/" element={<NavBarDemo />} />
-      <Route path="/winReward" element={<HaroxCompWrapper />} />
+      <Route path="/" element={<MainRender />} />
     </Routes>
     </ThemeProvider>
     </>
