@@ -85,11 +85,11 @@ export default function EventForm() {
             summary: formData.description,
             start: {
               timezone: "America/Los_Angeles",
-              utc: "2025-03-02T06:30:00Z"
+              utc: "2025-03-03T06:30:00Z"
             },
             end:{
               timezone: "America/Los_Angeles",
-              utc: "2025-04-10T06:30:00Z"
+              utc: "2025-03-05T06:30:00Z"
             },
             currency: "USD"
           }

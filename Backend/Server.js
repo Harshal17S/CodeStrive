@@ -10,7 +10,7 @@ const Organizer = require('./Model/Organizer');
 require('dotenv').config();
 
 app.use(CORS({
-    origin: ["http://localhost:5173","http://localhost:5174"],
+    origin: "*",
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
@@ -40,12 +40,12 @@ app.post("/RegisterOrganizer", async (req, res) => {
 })
 
 app.post('/saveUser', async (req, res) => {
-    const { username, earnedPoints, userLevel, useremail } = req.body;
+    const { userName, earnedPoints, userLevel, useremail } = req.body;
     const user = new User({
-        username,
-        earnedPoints,
-        userLevel,
-        useremail
+        username:userName,
+        earnedPoints:earnedPoints,
+        userLevel:userLevel,
+        useremail:useremail
     })
     await user.save();
     res.send('Data is Saved Successfully');

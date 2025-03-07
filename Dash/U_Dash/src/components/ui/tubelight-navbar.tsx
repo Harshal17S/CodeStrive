@@ -32,12 +32,17 @@ export function NavBar({ items, className }: NavBarProps) {
   const user = useUser();
 
   useEffect(() => {
-      axios.get('https://www.eventbriteapi.com/v3/organizations/2659001598811/events/', {
-        headers: { Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP' }
-      }).then((response) => {
-        setAllEvents(response.data['events']);
-      }).catch((err) => console.log(err));
-    
+    axios.get('https://www.eventbriteapi.com/v3/organizations/2659001598811/events/', {
+      headers: { Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP' }
+    }).then((response) => {
+      setAllEvents(response.data['events']);
+    }).catch((err) => console.log(err));
+
+    // axios.get('http://localhost:4000/getres').then((res)=>{
+    //     console.log(res)
+    //     setAllEvents(res.data)
+    // }).catch((err)=>{console.log("Error occured")})
+
   }, [])
 
   return (
@@ -119,7 +124,7 @@ export function NavBar({ items, className }: NavBarProps) {
         </div>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '20px', margin: 'auto', width: "fit-content", gap: '50px' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', marginTop: '30px', margin: 'auto', width: "fit-content", gap: '50px' }}>
         {AllEvents && AllEvents.map((event) => {
           return (<>
             <div style={{ display: "flex", marginLeft: '15px', flexDirection: "row", gap: "10px" }}>
@@ -131,11 +136,18 @@ export function NavBar({ items, className }: NavBarProps) {
                   <CardDescription>{event['description'].venue}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <button id="example-widget-trigger" onClick={async (e) => {
-                    e.preventDefault();
-                    await axios.post("http://localhost:5000/updateParticipationPoints", { username: user.user?.firstName }).then(() => {
-                     alert("Applied Sucessfully")
-                    }).catch(err => { console.log(err) });
+                  <button id="example-widget-trigger" onClick={(e) => {
+                    const script = document.createElement("script");
+                    script.src = "https://www.eventbrite.com/static/widgets/eb_widgets.js";
+                    document.body.appendChild(script);
+
+                    window.EBWidgets.createWidget({
+                      widgetType: "checkout",
+                      eventId: `${event.id}`,
+                      modal: true,
+                      modalTriggerElementId: "example-widget-trigger",
+                      onOrderComplete: () => console.log("Order complete!"),
+                    });
                   }}>Apply For Event</button>
                 </CardContent>
               </Card>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SignedIn ,SignedOut } from "@clerk/clerk-react";
 import axios from 'axios';
 import {useUser} from '@clerk/clerk-react';
@@ -28,6 +28,7 @@ const RetroGrid = () => {
 
 const HeroSection = React.forwardRef((props, ref) => {
   const User=useUser();
+  const [username, setusername] = useState("")
 
   return (
     <div className="relative bg-black" ref={ref} {...props}>
@@ -74,22 +75,25 @@ const HeroSection = React.forwardRef((props, ref) => {
                        >
                           Register as Organizer
                         </a>
-                    </SignedIn>
 
-                    <SignedIn>
-                    <a
+
+                        <a
                           className="inline-flex rounded-full text-center  items-center w-full justify-center bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent dark:from-zinc-300/5 dark:via-purple-400/20 text-gray-900 dark:text-white border-input border-[1px] hover:bg-gradient-to-tr hover:from-zinc-300/30 hover:via-purple-400/40 hover:to-transparent dark:hover:from-zinc-300/10 dark:hover:via-purple-400/30 transition-all sm:w-auto py-4 px-10"
                           style={{marginLeft:'30px'}}
 
                            onClick={async (e)=>{
                             e.preventDefault();
-                            await axios.post("http://localhost:5000/saveUser",{userName:User.user.firstName,earnedPoints:0,userLevel:"Begineer",useremail:User.user.primaryEmailAddressId}).then((resq)=>{
-                              console.log(resq)
+                            await axios.post("http://localhost:5000/saveUser",{userName:User.user.firstName,earnedPoints:0,userLevel:"Begineer",useremail:User.user.primaryEmailAddress.emailAddress}).then((resq)=>{
+                              alert('Participant Added Successfully');
+                            window.open("http://localhost:5175")
+
                             }).catch(err=>{console.log(err)});
                            }}
                         >
                          Register as Participant
                         </a>
+
+
                     </SignedIn>
                   </div>
               </span>
