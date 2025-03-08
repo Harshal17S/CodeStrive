@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import "./style.css";
-import axios from 'axios';
+import axios from "axios";
 import { useUser } from "@clerk/clerk-react";
-
 
 export default function EventForm() {
   const [companyname, setCompanyName] = useState("");
@@ -73,13 +71,18 @@ export default function EventForm() {
         headers: { "Content-Type": "application/json" },
       });
 
-      await axios.post("http://localhost:5000/updateEventsOfOrganizor", {
-        useremail: user.user.primaryEmailAddress.emailAddress, eventName: formData.companyname, description: formData.description, dateTime: formData.dateTime, location: formData.location, mode: formData.mode, ticketType: formData.ticketType,
-        image: imageUrl
-      })
+      await axios.post("http://localhost:6000/updateEventsOfOrganizor", {
+        useremail: user.user.primaryEmailAddress.emailAddress,
+        eventName: formData.companyname,
+        description: formData.description,
+        dateTime: formData.dateTime,
+        location: formData.location,
+        mode: formData.mode,
+        ticketType: formData.ticketType,
+        image: imageUrl,
+      });
 
       if (result.ok) {
-
         // const formData = new FormData();
         // formData.append("file", imageFile);
 
@@ -106,18 +109,18 @@ export default function EventForm() {
         const eventData = {
           event: {
             name: {
-              "html": companyname
+              html: companyname,
             },
             description: {
-              "html": description
+              html: description,
             },
             start: {
-              "timezone": "Asia/Kolkata",
-              "utc": "2025-03-10T06:30:00Z"
+              timezone: "Asia/Kolkata",
+              utc: "2025-03-10T06:30:00Z",
             },
             end: {
-              "timezone": "Asia/Kolkata",
-              "utc": "2025-03-15T06:30:00Z"
+              timezone: "Asia/Kolkata",
+              utc: "2025-03-15T06:30:00Z",
             },
             currency: "USD",
             online_event: true,
@@ -126,47 +129,70 @@ export default function EventForm() {
             format_id: "5",
             logo_id: "978189923",
             capacity: capacity,
-          }
-        }
+          },
+        };
 
-        await axios.post(`https://www.eventbriteapi.com/v3/organizations/2659001598811/events/`, eventData, {
-          headers: {
-            Authorization: 'Bearer Z6YXQPA7U4OBF7BLYIBP'
-          }
-        }).then(async (response) => {
-
-          const ticket_class_data = {
-            ticket_class: {
-              name: `Register to ${companyname}`,
-              free: true,
-              quantity_total: capacity,
-              sales_start: "2025-03-02T06:30:00Z",
-              sales_end: "2025-03-15T23:59:00Z",
-              minimum_quantity: 1,
-              maximum_quantity: 10,
-              auto_hide: false
+        await axios
+          .post(
+            `https://www.eventbriteapi.com/v3/organizations/2659001598811/events/`,
+            eventData,
+            {
+              headers: {
+                Authorization: "Bearer Z6YXQPA7U4OBF7BLYIBP",
+              },
             }
-          }
+          )
+          .then(async (response) => {
+            const ticket_class_data = {
+              ticket_class: {
+                name: `Register to ${companyname}`,
+                free: true,
+                quantity_total: capacity,
+                sales_start: "2025-03-02T06:30:00Z",
+                sales_end: "2025-03-15T23:59:00Z",
+                minimum_quantity: 1,
+                maximum_quantity: 10,
+                auto_hide: false,
+              },
+            };
 
-          await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/ticket_classes/`, ticket_class_data, {
-            headers: {
-              Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
-            }
+            await axios.post(
+              `https://www.eventbriteapi.com/v3/events/${response.data.id}/ticket_classes/`,
+              ticket_class_data,
+              {
+                headers: {
+                  Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`,
+                },
+              }
+            );
+
+            await axios
+              .post(
+                `https://www.eventbriteapi.com/v3/events/${response.data.id}/publish/`,
+                {},
+                {
+                  headers: {
+                    Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`,
+                  },
+                }
+              )
+              .then((res) => {
+                console.log(res.data);
+              });
+
+            await axios.post("http://localhost:6000/updateEventsOfOrganizor", {
+              useremail: "maddymongoose1320@gmail.com",
+              eventName: formData.companyname,
+              eventid: `${response.data.id}`,
+              description: formData.description,
+              dateTime: formData.dateTime,
+              location: formData.location,
+              mode: formData.mode,
+              ticketType: formData.ticketType,
+              image: imageUrl,
+            });
           })
-
-          await axios.post(`https://www.eventbriteapi.com/v3/events/${response.data.id}/publish/`, {}, {
-            headers: {
-              Authorization: `Bearer Z6YXQPA7U4OBF7BLYIBP`
-            }
-          }).then((res) => { console.log(res.data) })
-
-          await axios.post("http://localhost:5000/updateEventsOfOrganizor", {
-            useremail: user.user.primaryEmailAddress.emailAddress, eventName: formData.companyname,eventid:`${response.data.id}`, description: formData.description, dateTime: formData.dateTime, location: formData.location, mode: formData.mode, ticketType: formData.ticketType,
-            image: imageUrl
-          })
-
-        }).catch(err => console.log(err));
-
+          .catch((err) => console.log(err));
 
         setCompanyName("");
         setJobTitle("");
@@ -178,7 +204,6 @@ export default function EventForm() {
         setImage(null);
 
         alert("New Event Has been Published");
-
       } else {
         alert("Failed to add Employee. Please try again.");
       }
@@ -188,60 +213,61 @@ export default function EventForm() {
   };
 
   return (
-    <div className="container">
-      <form className="formmm" onSubmit={collectData}>
-        <h1 className="text-center pt-3">Event Form</h1>
+    <div className=" bg-black p-2">
+    <div className="w-1/3 mt-20 p-10 border border-neutral-700 rounded-md mx-auto bg-black text-gray-300">
+      <form className="text-left">
+        <h1 className="text-center text-2xl font-serif pt-1 text-white">
+          Event Form
+        </h1>
 
         <div className="mb-3">
-          <label className="form-label">Event Name</label>
+          <label className="text-lg font-serif text-slate-100">
+            Event Name
+          </label>
           <input
             type="text"
-            className="form-control"
-            value={companyname}
-            onChange={(e) => setCompanyName(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Description</label>
+          <label className="text-lg font-serif text-slate-100">
+            Description
+          </label>
           <input
             type="text"
-            className="form-control"
-            value={description}
-            onChange={(e) => setJobTitle(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Date & Time</label>
+          <label className="text-lg font-serif text-slate-100">
+            Date & Time
+          </label>
           <input
             type="date"
-            className="form-control"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Location</label>
+          <label className="text-lg font-semibold text-gray-400">
+            Location
+          </label>
           <input
             type="text"
-            className="form-control"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Mode</label>
+          <label className="text-lg font-serif text-slate-100">Mode</label>
           <select
-            className="form-control"
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           >
             <option value="Offline">Offline</option>
@@ -250,11 +276,11 @@ export default function EventForm() {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Ticket Type</label>
+          <label className="text-lg font-serif text-slate-100">
+            Ticket Type
+          </label>
           <select
-            className="form-control"
-            value={ticketType}
-            onChange={(e) => setTicketType(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           >
             <option value="Free">Free</option>
@@ -263,32 +289,35 @@ export default function EventForm() {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Capacity</label>
+          <label className="text-lg font-serif text-slate-100">
+            Capacity
+          </label>
           <input
             type="number"
-            className="form-control"
-            value={capacity}
-            onChange={(e) => setCapacity(e.target.value)}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Upload Event Image</label>
+          <label className="text-lg font-serif text-slate-100">
+            Upload Event Image
+          </label>
           <input
             type="file"
-            className="form-control"
-            onChange={(e) => setImage(e.target.files[0])}
+            className="w-full p-2 border rounded-md text-white border-gray-700"
             required
           />
         </div>
 
-        {loading && <p>Uploading image, please wait...</p>}
-
-        <button type="submit" className="btnnnnnnnn btn-primary" disabled={loading}>
-          {loading ? "Submitting..." : "Submit"}
+        <button
+          type="submit"
+          className="w-28 h-10 bg-white text-black font-bold rounded-lg relative overflow-hidden transition-all duration-500 hover:text-white hover:bg-gray-700 border border-white"
+        >
+          Submit
         </button>
       </form>
+    </div>
     </div>
   );
 }

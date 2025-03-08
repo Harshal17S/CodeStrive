@@ -1,18 +1,18 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import Navbar from './components/Navbar/Navbar'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Navbar from "./components/Navbar";
 
-import Form from './components/Form';
-import Past from './components/Past'
-import Upcoming from './components/Upcoming'
+import Form from "./components/Form";
+import Upcoming from "./components/Upcoming";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      {/* <Past/> */}
-      <Upcoming />
-      <Form />
+      <Routes>
+        <Route path="/" element={<Upcoming />} />
+        <Route path="/form" element={<Form />} />
+      </Routes>
     </div>
   );
 }
