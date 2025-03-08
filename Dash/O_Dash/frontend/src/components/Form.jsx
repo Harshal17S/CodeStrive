@@ -71,17 +71,6 @@ export default function EventForm() {
         headers: { "Content-Type": "application/json" },
       });
 
-      await axios.post("http://localhost:6000/updateEventsOfOrganizor", {
-        useremail: user.user.primaryEmailAddress.emailAddress,
-        eventName: formData.companyname,
-        description: formData.description,
-        dateTime: formData.dateTime,
-        location: formData.location,
-        mode: formData.mode,
-        ticketType: formData.ticketType,
-        image: imageUrl,
-      });
-
       if (result.ok) {
         // const formData = new FormData();
         // formData.append("file", imageFile);

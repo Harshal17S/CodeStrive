@@ -19,6 +19,11 @@ export function PcEvents() {
         setAllEvents(response.data["events"])
       })
       .catch((err) => console.log(err))
+
+    const script = document.createElement("script");
+    script.src = "https://www.eventbrite.com/static/widgets/eb_widgets.js";
+    script.async = true;
+    document.body.appendChild(script);
   }, [])
 
   const formatDateToIST = (utcDate) => {
@@ -67,7 +72,7 @@ export function PcEvents() {
                       })
 
                       await axios
-                        .post("http://localhost:6000/updateParticipationPoints", {
+                        .post("http://localhost:5000/updateParticipationPoints", {
                           username: user.user?.firstName,
                         })
                         .then(async (res) => {
@@ -78,7 +83,7 @@ export function PcEvents() {
                         })
 
                       await axios
-                        .post("http://localhost:6000/updateUserParicipation", {
+                        .post("http://localhost:5000/updateUserParicipation", {
                           username: user.user?.firstName,
                           eventId: event.id,
                           eventName: event["name"].text,

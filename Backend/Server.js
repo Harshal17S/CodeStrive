@@ -3,7 +3,7 @@ const app = express();
 const CORS = require('cors');
 const mongoose = require('mongoose');
 const axios = require('axios');
-const PORT = 6000;
+const PORT = 5000;
 const User = require('./Model/Data');
 const Organizer = require('./Model/Organizer');
 
@@ -144,7 +144,7 @@ app.post("/updateEventsOfOrganizor", async (req, res) => {
 
     const reqorganizor = await Organizer.findOne({ useremail });
 
-    reqorganizor.HostedEvents.push({ eventName, eventid, description, dateTime, location, mode, ticketType, image })
+    reqorganizor.HostedEvents.push({ eventName, eventid , description, dateTime, location, mode, ticketType, image })
 
     await reqorganizor.save();
 
@@ -158,6 +158,15 @@ app.post("/getEventsbyOrganizers", async (req, res) => {
     const reqorganizor = await Organizer.findOne({ useremail });
 
     res.send(reqorganizor.HostedEvents)
+
+})
+
+app.post("/getPreviousEvents",async(req,res)=>{
+    const { useremail } = req.body;
+
+    const reqorganizor = await Organizer.findOne({ useremail });
+
+    res.send()
 
 })
 

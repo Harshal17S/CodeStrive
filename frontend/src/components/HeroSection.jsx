@@ -89,7 +89,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                       onClick={async (e) => {
                         e.preventDefault();
                         await axios
-                          .post("http://localhost:6000/RegisterOrganizer", {
+                          .post("http://localhost:5000/RegisterOrganizer", {
                             userName: User.user.firstName,
                             userEmail:
                               User.user.primaryEmailAddress.emailAddress,
@@ -111,7 +111,7 @@ const HeroSection = React.forwardRef((props, ref) => {
                       onClick={async (e) => {
                         e.preventDefault();
                         await axios
-                          .post("http://localhost:6000/saveUser", {
+                          .post("http://localhost:5000/saveUser", {
                             userName: User.user.firstName,
                             earnedPoints: 0,
                             userLevel: "Begineer",

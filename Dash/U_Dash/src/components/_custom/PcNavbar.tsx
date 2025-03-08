@@ -27,31 +27,24 @@ const PcNavbar = ({ items, className }: NavBarProps) => {
   const [userEmail, setuserEmail] = useState("")
   const [participatedEvents, setParticipatedEvents] = useState([])
 
-  useEffect(() => {
-    axios
-      .post("http://localhost:6000/getUser", { username: "TAK" })
-      .then((resp) => {
-        setEarnedpts(resp.data["User"].earnedPoints)
-        setuserLevel(resp.data["User"].userLevel)
-        setuserEmail(resp.data["User"].useremail)
-      })
-      .catch(() => {
-        console.log("Error while Making Request")
-      })
+  const fetchProfile=async()=>{
+    await  axios
+    .post("http://localhost:5000/getUser", { username: user.user?.firstName })
+    .then((resp) => {
+      console.log(resp)
+      setEarnedpts(resp.data["User"].earnedPoints)
+      setuserLevel(resp.data["User"].userLevel)
+      setuserEmail(resp.data["User"].useremail)
+    })
+    .catch((err) => {
+      console.log("Error while Making Request"+err)
+    })
 
-    axios
-      .post("http://localhost:6000/getUserParticipation", { username: "TAK" })
-      .then((resp) => {
-        setParticipatedEvents(resp.data["events"])
-      })
-      .catch(() => {
-        console.log("Error fetching participation data")
-        setParticipatedEvents([
-          { id: 1, name: "Hackathon 2024", date: "Jan 10, 2024" },
-          { id: 2, name: "AI Conference", date: "Feb 5, 2024" },
-        ])
-      })
-  }, [])
+    
+  }
+
+  fetchProfile();
+
 
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen)
