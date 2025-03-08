@@ -1,7 +1,12 @@
 import React, { useState, useRef } from "react";
-import { motion, useMotionValueEvent, useScroll, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  AnimatePresence,
+} from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
-import {SignInButton} from "@clerk/clerk-react";
+import { SignInButton } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +43,9 @@ const Navbar = () => {
           <NavLink href="#about">Features</NavLink>
           <p className="text-3xl text-white font-semibold">CodeStrive</p>
           <NavLink href="#footer">Contact</NavLink>
-          <NavLink><SignInButton/></NavLink>
+          <NavLink>
+            <SignInButton />
+          </NavLink>
 
           <button className="lg:hidden text-white" onClick={toggleMenu}>
             {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}

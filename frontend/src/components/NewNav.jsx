@@ -1,7 +1,12 @@
 import React, { useState, useRef } from "react";
-import { motion, useMotionValueEvent, useScroll, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  AnimatePresence,
+} from "framer-motion";
 import { FiMenu, FiX } from "react-icons/fi";
-import {useUser ,SignOutButton} from "@clerk/clerk-react";
+import { useUser, SignOutButton } from "@clerk/clerk-react";
 
 const NewNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +33,7 @@ const NewNav = () => {
       transition={{ ease: "easeOut", duration: 0.5 }}
     >
       <motion.nav
-        className="w-full max-w-4xl px-6 py-3 flex items-center justify-between gap-x-4 border border-gray-600 
+        className="w-full max-w-3xl px-6 py-3 flex items-center justify-between border border-gray-600 
           bg-white/5 backdrop-blur-lg rounded-full shadow-lg"
         initial={{ y: -150 }}
         animate={{ y: 0 }}
@@ -36,15 +41,22 @@ const NewNav = () => {
       >
         {/* All items in a single row with equal spacing */}
         <div className="flex w-full justify-between items-center gap-x-4">
-        <NavLink href="#services">Home</NavLink>
-        <NavLink href="#about">Features</NavLink>
-          <p className="text-3xl text-white font-semibold">CodeStrive</p>
+          <NavLink href="#services">Home</NavLink>
+          <NavLink href="#about">Features</NavLink>
           <NavLink href="/profile">Profile</NavLink>
+          <p className="text-3xl text-white font-semibold">CodeStrive</p>
           <NavLink>{User.user.firstName}</NavLink>
-          <NavLink><img src={User.user.imageUrl} width={"60px"} height={"50px"} style={{borderRadius:"50%"}}/></NavLink>
-          <NavLink><SignOutButton/></NavLink>
-
-
+          <NavLink>
+            <img
+              src={User.user.imageUrl}
+              width={"35px"}
+              height={"35px"}
+              style={{ borderRadius: "50%" }}
+            />
+          </NavLink>
+          <NavLink>
+            <SignOutButton />
+          </NavLink>
 
           <button className="lg:hidden text-white" onClick={toggleMenu}>
             {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}

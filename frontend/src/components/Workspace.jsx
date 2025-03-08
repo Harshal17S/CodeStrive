@@ -27,7 +27,7 @@ const Workspace = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="text-3xl sm:text-5xl font-serif text-center text-gray-100 mb-16"
+          className="text-6xl sm:text-5xl font-serif text-center text-gray-100 mb-16"
         >
           Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-orange-200">Powerful Workspace</span> Solution
         </motion.h1>
@@ -55,7 +55,7 @@ const Workspace = () => {
             <h2 className="text-2xl font-serif text-gray-100">
               Smart <span className=" text-transparent bg-clip-text bg-gradient-to-bl from-purple-300 to-orange-200">Collaboration</span> Tools
             </h2>
-            <p className="text-lg font-sans text-gray-300">
+            <p className="text-xl font-sans text-gray-300">
               Seamless Team Integration
             </p>
             <p className="font-sans text-gray-300">
